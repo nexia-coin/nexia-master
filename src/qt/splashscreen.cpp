@@ -35,7 +35,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle)
     QPixmap splash(":/icons/nexia_splash");
 
     // Choose splash window size (must match your image or desired window)
-    QSize windowSize(1024, 1024);
+    QSize windowSize(480, 480);
 
     // Scale splash to window (HiDPI-safe)
     pixmap = splash.scaled(
