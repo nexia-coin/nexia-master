@@ -12,7 +12,7 @@
 
 **Nexia - The Future of Decentralized Payments**
 
-*High-performance Scrypt-based cryptocurrency with ultra-low fees*
+*High-performance Scrypt-based cryptocurrency*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
