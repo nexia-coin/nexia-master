@@ -34,7 +34,6 @@ cmake --build . -j$(nproc)
 **Run Daemon:**
 ```bash
 ./nexiad              # Mainnet
-./nexiad -testnet     # Testnet
 ```
 
 **Run Wallet:**
@@ -49,14 +48,14 @@ nexia-cli help        # RPC commands
 
 ### Technical Specifications
 
-- **Algorithm**: Scrypt (ASIC-resistant)
-- **Block Time**: 2.5 minutes
+- **Algorithm**: Scrypt
+- **Block Time**: 60 seconds
 
-- **Algorithm**: Scrypt (ASIC-resistant, GPU-friendly)
+- **Algorithm**: Scrypt (ASIC and GPU-friendly)
 - **Block Time**: 1 minute (60 seconds) ✅ Verified in `chainparams.cpp:79` (nPowTargetSpacing = 60)
 - **Initial Block Reward**: 15,000 NXE ✅ Verified in `validation.cpp:122` (GetBlockSubsidy)
-- **Inflation Model**: Similar to Dogecoin (progressive reward reduction, no hard cap)
-  - Halving interval: 840,000 blocks (~16 years at 1 min/block)
+- **Inflation Model**:
+  - Halving interval: 840,000 blocks (~1.6 year at 1 min/block)
   - Reward decreases by 50% each halving until reaching 0 after 64 halvings
 - **Address Format**: Mainnet addresses start with **"N"**
 - **Consensus**: Proof of Work (PoW)
@@ -65,56 +64,21 @@ nexia-cli help        # RPC commands
 
 - **Mainnet P2P Port**: 29433
 - **Mainnet RPC Port**: 29432
-- **Testnet P2P Port**: 39433
-- **Testnet RPC Port**: 39432
-- **Signet P2P Port**: 49433
-- **Signet RPC Port**: 49432
-- **Regtest P2P Port**: 19555
-- **Regtest RPC Port**: 19554
-- **Magic Bytes**: `0xfbc0b6db` (mainnet)
+- **Magic Bytes**: `0x4e584941` (mainnet)
 
 ### Wallet Features
 
 The Nexia Qt wallet includes:
 
-- **Professional UI**: Dark and Light themes with branded splash screen
+- **Professional UI**: Branded splash screen
 - **QR Code Support**: Generate QR codes for addresses and URIs
 - **URI Support**: Send and receive using Nexia URIs (nexia:Nxxx...?amount=X)
 - **User-Friendly**: Placeholders and tooltips throughout for clear UX
 - **Branded Experience**: Nexia logos visible in taskbar, title bar, and throughout the interface
 
-### Mining
-
-When a block is successfully mined, the miner is greeted with the epic message:
-
-```
-╔════════════════════════════════════════════════════════════╗
-║                                                            ║
-║                      ╔═══╗ ╔═══╗ ╔═══╗                   ║
-║                      ║ B ║ ║ B ║ ║ A ║                   ║
-║                      ║ I ║ ║ A ║ ║ N ║                   ║
-║                      ║ G ║ ║ N ║ ║   ║                   ║
-║                      ╚═══╝ ╚═══╝ ╚═══╝                   ║
-║                                                            ║
-║                    BLOCK MINED!                          ║
-║                                                            ║
-╚════════════════════════════════════════════════════════════╝
-```
-
-**Big Ban** - A celebration of the cosmic moment when a new block is created!
-
 ---
 
 ## 🌐 Network & P2P (v1.0.0+)
-
-### Network Architecture
-
-Nexia Core features a **fully functional P2P network** for block and transaction propagation:
-
-- **Mainnet P2P Port**: 29433
-- **Mainnet RPC Port**: 29432
-- **Testnet P2P Port**: 39433
-- **Testnet RPC Port**: 39432
 
 ### Connecting Nodes
 
@@ -152,47 +116,6 @@ Multiple Nexia nodes automatically connect and synchronize:
 
 ---
 
-## 💰 Fee Policy (Very Low Fees)
-
-### Nexia Philosophy: Transactions Should Be Cheap
-
-Nexia is designed with **intentionally low transaction fees** to encourage adoption:
-
-| Fee Type | Rate | Example (256 bytes) |
-|----------|------|---|
-| **Minimum Relay Fee** | 0.00001 NXE/byte | 0.0000025 NXE ≈ negligible |
-| **Default Fee** | 0.00001 NXE/byte | 0.00000256 NXE ≈ negligible |
-| **Recommended** | 0.00001 NXE/byte | Practically free |
-
-### Why Such Low Fees?
-
-- **Accessibility**: Everyone can afford to transact
-- **Bitcoin-friendly**: Unlike high-fee networks
-- **Sustainability**: Fees scale with transaction volume
-- **User-focused**: Not profit-maximizing through congestion
-
-### Configuring Fees
-
-Edit `nexia.conf`:
-
-```ini
-# Minimum fee for relay (satoshis per byte)
-minrelaytxfee=0.00001
-
-# Default transaction fee (satoshis per byte)
-# Leave commented to use automatic estimation
-# paytxfee=0.0001
-```
-
-Or via RPC:
-
-```bash
-# Estimate fee for next block (Nexia: always very low)
-nexia-cli estimatefee
-# Returns: 0.00001
-```
-
----
 
 ## 🔌 RPC API (Full Support)
 
@@ -391,7 +314,7 @@ Example `nexia.conf`:
 server=1
 rpcuser=yourusername
 rpcpassword=yourpassword
-rpcport=9332
+rpcport=29432
 rpcallowip=127.0.0.1
 
 # Connection
@@ -474,12 +397,12 @@ regtest=0
 server=1
 rpcuser=yourusername
 rpcpassword=yourpassword
-rpcport=9332
+rpcport=29432
 rpcallowip=127.0.0.1
 
 # Connection
 listen=1
-port=9333
+port=29433
 maxconnections=125
 
 # Mining
@@ -494,18 +417,6 @@ paytxfee=0.0001
 debug=0
 logtimestamps=1
 ```
-
----
-
-## 🌐 Network Ports
-
-| Network | P2P Port | RPC Port |
-|---------|----------|----------|
-| Mainnet | 9333     | 9332     |
-| Testnet | 19335    | 19332    |
-| Regtest | 19444    | 19443    |
-
----
 
 ## 🔐 Security
 
@@ -580,10 +491,9 @@ This project is licensed under the MIT License - see the [COPYING](COPYING) file
 
 ## 📞 Contact & Support
 
-- **Website**: [https://nexia.org](https://nexia.org)
-- **GitHub**: [https://github.com/nexia-project/nexia](https://github.com/nexia-project/nexia)
-- **Discord**: [Join our Discord](https://discord.gg/nexia)
-- **Twitter**: [@NexiaCoin](https://twitter.com/NexiaCoin)
+- **Website**: [https://nexia.org](https://nexia-coin.com)
+- **GitHub**: [https://github.com/nexia-project/nexia](https://github.com/nexia-coin/nexia-master)
+- **Discord**: [Join our Discord](https://discord.gg/Ky2XPXEh)
 
 ---
 
@@ -597,7 +507,7 @@ Nexia is experimental software. Use at your own risk. The developers and contrib
 
 ### Licensing & Attribution
 
-**NEXIA CORE v0.1.0** is built upon the proven foundations of Bitcoin Core and Litecoin.
+**NEXIA CORE v1.0.0** is built upon the proven foundations of Bitcoin Core and Litecoin.
 
 #### Copyright Notices
 
@@ -655,6 +565,6 @@ When contributing to Nexia, please:
 
 *Inspired by the cosmos. Powered by open-source collaboration.*
 
-v0.1.0 - Minimal Functional Release
+v1.0.0 - Minimal Functional Release
 
 </div>
