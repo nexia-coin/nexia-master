@@ -59,6 +59,7 @@ nexia-cli help        # RPC commands
   - Reward decreases by 50% each halving until reaching 0 after 64 halvings
 - **Address Format**: Mainnet addresses start with **"N"**
 - **Consensus**: Proof of Work (PoW)
+- **Difficulty Adjustment**: LWMA v3
 
 ### Network Parameters
 
