@@ -69,7 +69,7 @@ public:
         consensus.nSubsidyHalvingInterval = 840000;
         consensus.BIP16Height = 0;
         consensus.BIP34Height = 0;
-        consensus.BIP34Hash = uint256S("0x000003303ea128020d1e04629176acfe1a1734a09c208fb0ffe2311e8d7abd97");
+        consensus.BIP34Hash = uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7");
         consensus.BIP65Height = 0;
         consensus.BIP66Height = 0;
         consensus.CSVHeight = 0;
@@ -98,7 +98,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nTimeoutHeight = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
-        consensus.defaultAssumeValid = uint256S("0x000003303ea128020d1e04629176acfe1a1734a09c208fb0ffe2311e8d7abd97");
+        consensus.defaultAssumeValid = uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7");
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -114,9 +114,9 @@ public:
         m_assumed_blockchain_size = 0;
         m_assumed_chain_state_size = 0;
 
-        genesis = CreateGenesisBlock(1769923107, 645292, 0x1e0ffff0, 1, 15000 * COIN);
+        genesis = CreateGenesisBlock(1769924087, 29049, 0x1e0ffff0, 1, 15000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000003303ea128020d1e04629176acfe1a1734a09c208fb0ffe2311e8d7abd97"));
+        assert(consensus.hashGenesisBlock == uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7"));
         assert(genesis.hashMerkleRoot == uint256S("0xa13ffc83e173124818db4e62a5f772ec9a4a2a2f717c9907a9b6018c98b0e24a"));
 
         //vSeeds.emplace_back("xxxxxxxxx");
@@ -140,13 +140,13 @@ public:
 
         checkpointData = {
             {
-                {  0, uint256S("0x000003303ea128020d1e04629176acfe1a1734a09c208fb0ffe2311e8d7abd97")},
+                {  0, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
             }
         };
 
         chainTxData = ChainTxData{
-            // Data from rpc: getchaintxstats 0 0x000003303ea128020d1e04629176acfe1a1734a09c208fb0ffe2311e8d7abd97
-            /* nTime    */ 1769923107,
+            // Data from rpc: getchaintxstats 0 0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7
+            /* nTime    */ 1769924087,
             /* nTxCount */ 0,
             /* dTxRate  */ 0.000
         };
