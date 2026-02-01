@@ -101,7 +101,7 @@ Multiple Nexia nodes automatically connect and synchronize:
 - **Transaction Relay** - Low-fee transactions propagate quickly
 - **Address Manager** - Tracks and connects to network peers
 
-### Mainnet vs Testnet vs Regtest
+### Mainnet vs Testnet vs Regtest (Testnet and Regtest not started yet)
 
 ```bash
 # Mainnet (default) - Real blockchain, separate from others
