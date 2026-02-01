@@ -25,7 +25,7 @@
 
 **Linux/macOS:**
 ```bash
-git clone https://github.com/nexia/nexia-core.git
+git clone https://github.com/nexia-coin/nexia-master.git
 cd nexia-core && mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . -j$(nproc)
@@ -229,7 +229,7 @@ The **Nexia Qt wallet** displays real-time network status:
 
 ```bash
 # Clone the repository
-git clone https://github.com/nexia-project/nexia.git
+git clone https://github.com/nexia-coin/nexia-master.git
 cd nexia
 
 # Build using CMake
@@ -493,8 +493,8 @@ This project is licensed under the MIT License - see the [COPYING](COPYING) file
 ## 📞 Contact & Support
 
 - **Website**: [https://nexia.org](https://nexia-coin.com)
-- **GitHub**: [https://github.com/nexia-project/nexia](https://github.com/nexia-coin/nexia-master)
-- **Discord**: [Join our Discord](https://discord.gg/Ky2XPXEh)
+- **GitHub**: [https://github.com/nexia-coin/nexia-master](https://github.com/nexia-coin/nexia-master)
+- **Discord**: [Join our Discord](https://discord.gg/Y9EkSzV2)
 
 ---
 
