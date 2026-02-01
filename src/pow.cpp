@@ -62,7 +62,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
 {
     const int64_t T = params.nPowTargetSpacing;
-    const int64_t N_full = 96;
+    const int64_t N_full = 112;
     const int64_t height = pindexLast->nHeight;
     const arith_uint256 powLimit = UintToArith256(params.powLimit);
 
@@ -145,53 +145,6 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
         bnNew = bnPowLimit;
 
     return bnNew.GetCompact();
-}
-
-bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits, uint32_t new_nbits)
-{
-
-    if (height + 1 >= static_cast<int64_t>(params.LWMAHeight)) return true;
-
-    if (params.fPowAllowMinDifficultyBlocks) return true;
-
-    if (height % params.DifficultyAdjustmentInterval() == 0) {
-        int64_t smallest_timespan = params.nPowTargetTimespan/4;
-        int64_t largest_timespan = params.nPowTargetTimespan*4;
-
-        const arith_uint256 pow_limit = UintToArith256(params.powLimit);
-        arith_uint256 observed_new_target;
-        observed_new_target.SetCompact(new_nbits);
-
-        // Calculate the largest difficulty value possible:
-        arith_uint256 largest_difficulty_target;
-        largest_difficulty_target.SetCompact(old_nbits);
-        largest_difficulty_target *= largest_timespan;
-        largest_difficulty_target /= params.nPowTargetTimespan;
-
-        if (largest_difficulty_target > pow_limit) {
-            largest_difficulty_target = pow_limit;
-        }
-
-        arith_uint256 maximum_new_target;
-        maximum_new_target.SetCompact(largest_difficulty_target.GetCompact());
-        if (maximum_new_target < observed_new_target) return false;
-
-        arith_uint256 smallest_difficulty_target;
-        smallest_difficulty_target.SetCompact(old_nbits);
-        smallest_difficulty_target *= smallest_timespan;
-        smallest_difficulty_target /= params.nPowTargetTimespan;
-
-        if (smallest_difficulty_target > pow_limit) {
-            smallest_difficulty_target = pow_limit;
-        }
-
-        arith_uint256 minimum_new_target;
-        minimum_new_target.SetCompact(smallest_difficulty_target.GetCompact());
-        if (minimum_new_target > observed_new_target) return false;
-    } else if (old_nbits != new_nbits) {
-        return false;
-    }
-    return true;
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
