@@ -141,14 +141,17 @@ public:
         checkpointData = {
             {
                 {  0, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
+                {  1, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
+                {  120, uint256S("0x05d82851777e6c88160a2829b37b211abb0d4e68dbe2923a5691c94bece23ef8")},
+                {  126, uint256S("0xc0f4d986c9d220074eb52f71d86b17ec6f3c10c51bac20388a0b37fbf7a9610c")}
             }
         };
 
         chainTxData = ChainTxData{
             // Data from rpc: getchaintxstats 0 0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7
-            /* nTime    */ 1769924087,
-            /* nTxCount */ 0,
-            /* dTxRate  */ 0.000
+            /* nTime    */ 1769929790,
+            /* nTxCount */ 128,
+            /* dTxRate  */ 0.02886133032694476
         };
     }
 };

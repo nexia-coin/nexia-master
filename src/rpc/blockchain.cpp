@@ -45,6 +45,12 @@
 #include <memory>
 #include <mutex>
 
+
+#include <pow.h>        // IMPORTANT
+#include <chain.h>
+#include <validation.h> // cs_main, ChainActive
+#include <cmath>        // std::abs
+
 struct CUpdatedBlock
 {
     uint256 hash;
@@ -2644,6 +2650,107 @@ static RPCHelpMan dumptxoutset()
     };
 }
 
+static RPCHelpMan getdifficultyalgorithm()
+{
+    return RPCHelpMan{
+        "getdifficultyalgorithm",
+        "Returns the currently used difficulty adjustment algorithm "
+        "(safely detected and consensus-consistent).",
+        {},
+        RPCResult{
+            RPCResult::Type::OBJ, "", "",
+            {
+                {RPCResult::Type::STR, "current_algorithm", "Detected difficulty algorithm"},
+                {RPCResult::Type::NUM, "next_nbits", "Next difficulty in compact format (nBits)"},
+                {RPCResult::Type::NUM, "lwma_nbits", "LWMA computed nBits (if applicable)"},
+                {RPCResult::Type::NUM, "legacy_nbits", "Legacy computed nBits (if applicable)"},
+                {RPCResult::Type::NUM, "height", "Current chain height"},
+                {RPCResult::Type::NUM, "lwma_activation_height", "LWMA activation height"},
+            }
+        },
+        RPCExamples{
+            HelpExampleCli("getdifficultyalgorithm", "")
+            + HelpExampleRpc("getdifficultyalgorithm", "")
+        },
+        [](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue {
+            LOCK(cs_main);
+
+            const CBlockIndex* pindexLast = ::ChainActive().Tip();
+            if (!pindexLast) {
+                throw JSONRPCError(RPC_MISC_ERROR, "Chain tip not available");
+            }
+
+            const Consensus::Params& params = Params().GetConsensus();
+            const int currentHeight = pindexLast->nHeight;
+            const int nextHeight = currentHeight + 1;
+
+            CBlockHeader dummy;
+            dummy.nTime = pindexLast->GetBlockTime() + params.nPowTargetSpacing;
+
+            const unsigned int nextBits = GetNextWorkRequired(pindexLast, &dummy, params);
+            const unsigned int lwmaBits = LwmaCalculateNextWorkRequired(pindexLast, params);
+
+            bool legacyAvailable = false;
+            unsigned int legacyBits = 0;
+
+            if (currentHeight >= params.DifficultyAdjustmentInterval()) {
+                int blockstogoback = params.DifficultyAdjustmentInterval();
+                const CBlockIndex* pindexFirst = pindexLast;
+
+                for (int i = 0; pindexFirst && i < blockstogoback; i++) {
+                    pindexFirst = pindexFirst->pprev;
+                }
+
+                if (pindexFirst) {
+                    legacyBits = CalculateNextWorkRequired(
+                        pindexLast,
+                        pindexFirst->GetBlockTime(),
+                        params
+                    );
+                    legacyAvailable = true;
+                }
+            }
+
+            std::string algorithm = "Unknown";
+
+            if (nextHeight < (int)params.LWMAHeight) {
+
+                if (currentHeight < params.DifficultyAdjustmentInterval()) {
+                    algorithm = "Bootstrap (fixed difficulty)";
+                } else {
+                    algorithm = "Legacy";
+                }
+
+            } else {
+
+                if (nextBits == lwmaBits && (!legacyAvailable || nextBits != legacyBits)) {
+                    algorithm = "LWMA";
+                } else if (legacyAvailable && nextBits == legacyBits && nextBits != lwmaBits) {
+                    algorithm = "Legacy";
+                } else if (legacyAvailable && nextBits == lwmaBits && nextBits == legacyBits) {
+                    algorithm = "LWMA (matches legacy)";
+                } else {
+                    algorithm = "Unknown (mismatch)";
+                }
+            }
+
+            UniValue result(UniValue::VOBJ);
+            result.pushKV("current_algorithm", algorithm);
+            result.pushKV("next_nbits", (uint64_t)nextBits);
+            result.pushKV("lwma_nbits", (uint64_t)lwmaBits);
+            if (legacyAvailable) {
+                result.pushKV("legacy_nbits", (uint64_t)legacyBits);
+            } else {
+                result.pushKV("legacy_nbits", UniValue::VNULL);
+            }
+            result.pushKV("height", currentHeight);
+            result.pushKV("lwma_activation_height", (uint64_t)params.LWMAHeight);
+
+            return result;
+        }
+    };
+}
+
 void RegisterBlockchainRPCCommands(CRPCTable &t)
 {
 // clang-format off
@@ -2660,6 +2767,7 @@ static const CRPCCommand commands[] =
     { "blockchain",         "getblockheader",         &getblockheader,         {"blockhash","verbose"} },
     { "blockchain",         "getchaintips",           &getchaintips,           {} },
     { "blockchain",         "getdifficulty",          &getdifficulty,          {} },
+    { "blockchain",         "getdifficultyalgorithm", &getdifficultyalgorithm, {} },
     { "blockchain",         "getmempoolancestors",    &getmempoolancestors,    {"txid","verbose"} },
     { "blockchain",         "getmempooldescendants",  &getmempooldescendants,  {"txid","verbose"} },
     { "blockchain",         "getmempoolentry",        &getmempoolentry,        {"txid"} },
