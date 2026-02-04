@@ -97,8 +97,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nStartHeight = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nTimeoutHeight = Consensus::BIP9Deployment::NO_TIMEOUT;
 
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
-        consensus.defaultAssumeValid = uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000003ef548a2da6a49");
+        consensus.defaultAssumeValid = uint256S("0xfcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1");
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -119,7 +119,7 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7"));
         assert(genesis.hashMerkleRoot == uint256S("0xa13ffc83e173124818db4e62a5f772ec9a4a2a2f717c9907a9b6018c98b0e24a"));
 
-        //vSeeds.emplace_back("xxxxxxxxx");
+        vSeeds.emplace_back("dnsseed.nexiacoin.network");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,53);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
@@ -143,15 +143,16 @@ public:
                 {  0, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
                 {  1, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
                 {  120, uint256S("0x05d82851777e6c88160a2829b37b211abb0d4e68dbe2923a5691c94bece23ef8")},
-                {  126, uint256S("0xc0f4d986c9d220074eb52f71d86b17ec6f3c10c51bac20388a0b37fbf7a9610c")}
+                {  126, uint256S("0xc0f4d986c9d220074eb52f71d86b17ec6f3c10c51bac20388a0b37fbf7a9610c")},
+                {  4076, uint256S("0xfcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1")}
             }
         };
 
         chainTxData = ChainTxData{
-            // Data from rpc: getchaintxstats 0 0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7
-            /* nTime    */ 1769929790,
-            /* nTxCount */ 128,
-            /* dTxRate  */ 0.02886133032694476
+            // Data from rpc: getchaintxstats 4076 fcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1
+            /* nTime    */ 1770168755,
+            /* nTxCount */ 4650,
+            /* dTxRate  */ 0.01918483036896761
         };
     }
 };
