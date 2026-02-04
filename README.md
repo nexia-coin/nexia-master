@@ -492,7 +492,7 @@ This project is licensed under the MIT License - see the [COPYING](COPYING) file
 
 ## 📞 Contact & Support
 
-- **Website**: [https://nexia.org](https://nexia-coin.com)
+- **Website**: [https://nexia.org](https://nexiacoin.org/)
 - **GitHub**: [https://github.com/nexia-coin/nexia-master](https://github.com/nexia-coin/nexia-master)
 - **Discord**: [Join our Discord](https://discord.gg/Y9EkSzV2)
 
