@@ -494,7 +494,7 @@ This project is licensed under the MIT License - see the [COPYING](COPYING) file
 
 - **Website**: [https://nexia.org](https://nexiacoin.org/)
 - **GitHub**: [https://github.com/nexia-coin/nexia-master](https://github.com/nexia-coin/nexia-master)
-- **Discord**: [Join our Discord](https://discord.gg/Y9EkSzV2)
+- **Discord**: [Join our Discord](https://discord.gg/44CAfbTJu3)
 
 ---
 
