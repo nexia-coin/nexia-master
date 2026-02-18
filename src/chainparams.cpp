@@ -97,8 +97,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nStartHeight = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nTimeoutHeight = Consensus::BIP9Deployment::NO_TIMEOUT;
 
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000003ef548a2da6a49");
-        consensus.defaultAssumeValid = uint256S("0xfcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000121f9f3f157df7f");
+        consensus.defaultAssumeValid = uint256S("0xb56a17f79a3fe981ddcbc3940e26d437a90f164ffc30fe8a6c546d980e9f8f4e");
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -144,15 +144,17 @@ public:
                 {  1, uint256S("0xc589e55000d7ecfc92db97f7a3ed6ce6db5b7f75c2da7010deffea1b42ed50b7")},
                 {  120, uint256S("0x05d82851777e6c88160a2829b37b211abb0d4e68dbe2923a5691c94bece23ef8")},
                 {  126, uint256S("0xc0f4d986c9d220074eb52f71d86b17ec6f3c10c51bac20388a0b37fbf7a9610c")},
-                {  4076, uint256S("0xfcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1")}
+                {  4076, uint256S("0xfcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1")},
+                {  13334, uint256S("0xcb8b22df107eaccfc07b837b2665ab87f156d484e35240c518c84996a1848488")},
+                {  24192, uint256S("0xb56a17f79a3fe981ddcbc3940e26d437a90f164ffc30fe8a6c546d980e9f8f4e")} // mweb active
             }
         };
 
         chainTxData = ChainTxData{
-            // Data from rpc: getchaintxstats 4076 fcce3d71acdca303186e6d44221dc1f815506b08fb2a78323fea35c44192c2c1
-            /* nTime    */ 1770168755,
-            /* nTxCount */ 4650,
-            /* dTxRate  */ 0.01918483036896761
+            // Data from rpc: getchaintxstats 24192 b56a17f79a3fe981ddcbc3940e26d437a90f164ffc30fe8a6c546d980e9f8f4e
+            /* nTime    */ 1771441619,
+            /* nTxCount */ 26581,
+            /* dTxRate  */ 0.01753342141490311
         };
     }
 };
